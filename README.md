@@ -1,3 +1,16 @@
+
+This Fork are for our "Banana Pi R1" needs  as an FIREWALL:
+- work in progress -
+
+- Fully Modularised kernel 
+- wiki support
+- full usb support
+- all possible fstypes 
+- DM , MD , LVM enabled
+- Linux LVS , Netfilter with all possible modules for FIREWALL usage (ufw , shirewall and more ) 
+- IPsec , crypt , selinux kernel modules
+
+----------------------------------------
 1. SDK for ARM 
 2. Use proven sources and configurations
 3. Create SD images for various boards: Cubieboard 1, Cubieboard 2, Cubietruck, BananaPi, BananaPi, BananaPi PRO, Banana Pi R1, Cubox, Humminboard, Olimex Lime, Olimex Lime 2, Olimex Micro, Orange Pi, Udoo quad
@@ -7,7 +20,7 @@
 ```bash
 #!/bin/bash
 # 
-# Edit and execute this script - Ubuntu 14.04 x86/64 recommended
+# Edit and execute this script - debian jessie recommended
 #
 
 # method
@@ -17,11 +30,11 @@ KERNEL_CLEAN="yes"							# run MAKE clean before kernel compilation
 USEALLCORES="yes"							# Use all CPU cores for compiling
    
 # user 
-DEST_LANG="en_US.UTF-8" 	 				# sl_SI.UTF-8, en_US.UTF-8
-TZDATA="Europe/Ljubljana" 					# Timezone
+DEST_LANG="de_DE.UTF-8" 	 				# sl_SI.UTF-8, en_US.UTF-8
+TZDATA="Europe/Berlin" 					# Timezone
 ROOTPWD="1234"   		  					# Must be changed @first login
-MAINTAINER="Igor Pecovnik"					# deb signature
-MAINTAINERMAIL="igor.pecovnik@****l.com"	# deb signature
+MAINTAINER="Horst Venzke"					# deb signature
+MAINTAINERMAIL="support@remsnet.de"	# deb signature
     
 # advanced
 KERNELTAG="v3.19"							# which kernel version - valid only for mainline
@@ -36,14 +49,14 @@ SRC=$(pwd)
 # destination
 DEST=$(pwd)/output                      		      	
 
+test -x /usr/bin/git || echo "ERROR , git not installed - Please use script install_build_env.sh "; exit 1
+
 # get updates of the main build libraries
 if [ -d "$SRC/lib" ]; then
 	cd $SRC/lib
 	git pull 
 else
-	# download SDK
-	apt-get -y -qq install git
-	git clone https://github.com/igorpecovnik/lib
+	git clone https://github.com/hvenzke/banana-pi-R1-Buildlib
 fi
 
 source $SRC/lib/main.sh
