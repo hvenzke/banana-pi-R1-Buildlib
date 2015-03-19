@@ -13,7 +13,7 @@ This Fork are for our "Banana Pi R1" needs  as an FIREWALL:
 ----------------------------------------
 1. SDK for ARM 
 2. Use proven sources and configurations
-3. Create SD images for various boards: Cubieboard 1, Cubieboard 2, Cubietruck, BananaPi, BananaPi, BananaPi PRO, Banana Pi R1, Cubox, Humminboard, Olimex Lime, Olimex Lime 2, Olimex Micro, Orange Pi, Udoo quad
+3. Create SD images for :  Banana Pi R1 
 
 4. Well documented, maintained & easy to use
 5. Boot loaders and kernel images are compiled and cached.
