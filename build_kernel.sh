@@ -4,6 +4,7 @@
 # https://wiki.debian.org/HowToRebuildAnOfficialDebianKernelPackage
 # http://debiananwenderhandbuch.de/kernelbauen.html
 # http://wiki.oppserver.net/index.php/DEBIAN_KERNEL_BAUEN
+# http://manpages.ubuntu.com/manpages/trusty/de/man5/kernel-pkg.conf.5.html
 
 # Edit and execute this script - debian jessie recommended
 #
@@ -43,7 +44,7 @@ if [ -d "$SRC/lib" ]; then
     cd $SRC/lib/output/linux-mainline
     make oldconfig
     #
-   fakeroot make-kpkg buildpackage --initrd --revision `date +%Y%m%d`
+   fakeroot make-kpkg buildpackage --initrd --revision $CONFIG_EXTRAVERSION --append-to-version `date +%Y%m%d`
     #
 fi
 
