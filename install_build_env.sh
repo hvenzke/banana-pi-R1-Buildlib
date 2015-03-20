@@ -3,6 +3,7 @@
 
 # docu refs:
 # https://wiki.debian.org/HowToRebuildAnOfficialDebianKernelPackage
+# http://debiananwenderhandbuch.de/kernelbauen.html
 # http://wiki.oppserver.net/index.php/DEBIAN_KERNEL_BAUEN
 
 # script for setup debian kernel build and packaging
