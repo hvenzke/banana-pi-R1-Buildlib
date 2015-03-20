@@ -34,10 +34,66 @@ CONFIG_EXTRAVERSION="01"                    # pkg revsion
 FBTFT="yes"                                 # https://github.com/notro/fbtft
 EXTERNAL="yes"                              # compile extra drivers`
 
+
 #---------------------------------------------------------------------------------------
+# http://piprojects.net/bananapi-kernel-3-18-rc5/o
+# http://www.dingolfing.org/members/kutschi/cubietruck-server.html
+# http://www.at91.com/linux4sam/bin/view/Linux4SAM/U-Boot
+
+# source is where we have +8GB free
+SRC=/t/GIT
+OUTP=$SRC/test
+
+DEST=$(pwd)/test
+
+
+# cleanup output
+test -d $OUTP && cd $SRC; rm -rf ./test
+
+# create output
+test -d $OUTP || mkdir $OUTP; cd $OUTP
+
+
+DISTRIBUTION="Debian"
+RELEASE=$DISTRIBUTION
+REVISION
+BOARD="bananapi-r1"
+GPGPASS=""
+BRANCH="next"
+
 
 # check git
 test -x /usr/bin/git || echo " ERROR - git not installed; exit 1"
+
+# Hostname
+HOST="$BOARD"
+
+
+# Load libraries
+. $SRC/lib/configuration.sh                        # Board configuration
+. $SRC/lib/boards.sh                                       # Board specific install
+. $SRC/lib/common.sh                                       # Functions
+VERSION="${BOARD^} $DISTRIBUTION $REVISION $RELEASE $BRANCH"
+
+
+# fetch_from_github [repository, sub directory]
+mkdir -p $OUTP
+fetch_from_github "$BOOTLOADER" "$BOOTSOURCE"
+fetch_from_github "$LINUXKERNEL" "$LINUXSOURCE"
+if [[ -n "$DOCS" ]]; then fetch_from_github "$DOCS" "$DOCSDIR"; fi
+if [[ -n "$MISC1" ]]; then fetch_from_github "$MISC1" "$MISC1_DIR"; fi
+if [[ -n "$MISC2" ]]; then fetch_from_github "$MISC2" "$MISC2_DIR"; fi
+if [[ -n "$MISC3" ]]; then fetch_from_github "$MISC3" "$MISC3_DIR"; fi
+if [[ -n "$MISC4" ]]; then fetch_from_github "$MISC4" "$MISC4_DIR"; fi
+
+
+# Patching sources
+patching_sources
+
+# Grab linux kernel version
+grab_kernel_version
+
+
 
 # Build dir
 SRC=$BUILD_DIR
