@@ -7,7 +7,10 @@
 # http://manpages.ubuntu.com/manpages/trusty/de/man5/kernel-pkg.conf.5.html
 
 # Edit and execute this script - debian jessie recommended
-#
+
+
+# Path where you have min +8G free 
+BUILD_DIR=/t/GIT
 
 # method
 SOURCE_COMPILE="yes"                        # force source compilation: yes / no
@@ -33,17 +36,23 @@ EXTERNAL="yes"                              # compile extra drivers`
 
 #---------------------------------------------------------------------------------------
 
-# source is where we start the script
-SRC=$(pwd)
+# check git
+test -x /usr/bin/git || echo " ERROR - git not installed; exit 1"
 
+# Build dir
+SRC=$BUILD_DIR
 # destination
 DEST=$(pwd)/output
 
+
 # get updates of the main build libraries
 if [ -d "$SRC/lib" ]; then
-    cd $SRC/lib/output/linux-mainline
+   #
+   # debian compliant kernel build
+    test -d $DEST/lib/linux-kernel-$KERNELTAG || mkdir -p $DEST/lib/linux-kernel-$KERNELTAG
+    cd $DEST/lib/linux-kernel-$KERNELTAG
     make oldconfig
-    #
+    
+    # we build all kernel packages 
    fakeroot make-kpkg buildpackage --initrd --revision $CONFIG_EXTRAVERSION --append-to-version `date +%Y%m%d`
-    #
 fi
