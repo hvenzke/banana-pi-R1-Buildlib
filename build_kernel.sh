@@ -104,11 +104,12 @@ DEST=$(pwd)/output
 # get updates of the main build libraries
 if [ -d "$SRC/lib" ]; then
    #
-   # debian compliant kernel build
-    test -d $DEST/lib/linux-kernel-$KERNELTAG || mkdir -p $DEST/lib/linux-kernel-$KERNELTAG
-    cd $DEST/lib/linux-kernel-$KERNELTAG
-    make oldconfig
-    
+   # debian compliant kernel build prepare
+   test -d  $DEST/linux-mainline && mv $DEST/linux-mainline $DEST/linux-kernel-$KERNELTAG
+   KSRC=$DEST/linux-kernel-$KERNELTAG
+   cd $KSRC
+   make oldconfig
+
     # we build all kernel packages 
    fakeroot make-kpkg buildpackage --initrd --revision $CONFIG_EXTRAVERSION --append-to-version `date +%Y%m%d`
 fi
