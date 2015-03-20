@@ -47,5 +47,3 @@ if [ -d "$SRC/lib" ]; then
    fakeroot make-kpkg buildpackage --initrd --revision $CONFIG_EXTRAVERSION --append-to-version `date +%Y%m%d`
     #
 fi
-
-source $SRC/lib/main.sh
