@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+#http://wiki.lemaker.org/Setting_up_the_bootable_SD_card
+#
+echo "updating /boot/boot.scr from /boot/boot-next.cmd"
+mkimage -C none -A arm -T script -d /boot/boot-next.cmd /boot/boot.scr
