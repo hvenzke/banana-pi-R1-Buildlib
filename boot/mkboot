@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-#http://wiki.lemaker.org/Setting_up_the_bootable_SD_card
-#http://elinux.org/RPi_U-Boot
-
-echo "updating /boot/boot.scr from /boot/boot-next.cmd"
-mkimage -C none -O linux -A arm -T script -d /boot/boot-next.cmd /boot/boot.scr
