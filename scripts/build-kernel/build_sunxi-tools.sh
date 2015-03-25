@@ -22,9 +22,9 @@ else
 	chmod 755 /usr/bin/bin2fex
 fi
 
-
-
 # for destination
 make -s clean && make $CTHREADS 'fex2bin' CC=arm-linux-gnueabihf-gcc
 
 make $CTHREADS 'bin2fex' CC=arm-linux-gnueabihf-gcc && make $CTHREADS 'nand-part' CC=arm-linux-gnueabihf-gcc
+
+fakeroot dpkg-buildpackage -B -d
