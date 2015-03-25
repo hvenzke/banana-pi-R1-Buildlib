@@ -1,0 +1,13 @@
+#!/bin/sh
+
+DEST=/t/GIT
+R1LIB=$DEST/lib/config/bananapir1.fex
+
+if [ -x /usr/bin/fex2bin ] && [ -f $R1LIB ]; then
+
+    echo "generating /boot/bananapir1.bin from $R1LIB"
+    fex2bin $R1LIB /boot/bananapir1.bin
+else
+    echo " please check for fex2bin and/or $R1LIB"
+    exit 1
+fi
