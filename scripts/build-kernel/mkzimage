@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+KERN=$1
+#
+if [ -z $1 ]; then
+	echo ""
+	echo "Flattend device tree Image updater"
+	echo "use this after frestly kernel install from selfbuild kernel-image-<name+release_version>.deb "
+	echo " oriign vmlinux image expected to renamed to vmlinux-<file-name>.raw bevor use this"
+	echo ""
+	echo "Usage $0 vmlinux-file-name.raw"
+	exit 1
+fi
+#
+if [ -f  /boot/$KERN.raw ]; then
+	 echo "checking for /boot/$KERN.raw : OK"
+	#
+	#
+	mkimage -A arm -O linux -T kernel -C none -a 0x80008000 -e 0x80008000 -n "Linux 3.19.0 kernel" -d $KERN.raw $KERN
+	chmod 755 $KERN
+	#
+	# update zImage alias
+	#
+	rm -f /boot/zImage
+	
+	cd /boot/; ln -s /boot/$KERN zImage
+	chmod 755 zImage
+	#
+else
+	echo "error linux kernel /boot/$KERN.raw don't exist"
+	exit 1
+fi
